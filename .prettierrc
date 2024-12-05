@@ -1,5 +1,8 @@
 {
-  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-prisma"],
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-prisma"
+  ],
   "semi": false,
   "singleQuote": true,
   "jsxSingleQuote": true,

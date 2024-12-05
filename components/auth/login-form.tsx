@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { useState, useTransition } from 'react'
+import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -121,57 +121,6 @@ const LoginForm = () => {
         </Link>
       </div>
     </div>
-  )
-}
-
-const OldForm = () => {
-  const [isLoading, setIsLoading] = useState(false)
-
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setIsLoading(true)
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsLoading(false)
-  }
-
-  return (
-    <form onSubmit={onSubmit} className='space-y-4'>
-      <div className='space-y-2'>
-        <label htmlFor='email' className='text-sm font-medium leading-none'>
-          Correo electrónico
-        </label>
-        <input
-          id='email'
-          type='email'
-          placeholder='m@example.com'
-          className='w-full p-2 text-sm border rounded-md bg-background'
-          required
-        />
-      </div>
-      <div className='space-y-2'>
-        <label htmlFor='password' className='text-sm font-medium leading-none'>
-          Contraseña
-        </label>
-        <input
-          id='password'
-          type='password'
-          className='w-full p-2 text-sm border rounded-md bg-background'
-          required
-        />
-      </div>
-      <Button className='w-full' disabled={isLoading}>
-        {isLoading ? (
-          <div className='flex items-center justify-center gap-2'>
-            <div className='h-4 w-4 animate-spin rounded-full border-2 border-background border-r-transparent' />
-            Iniciando sesión...
-          </div>
-        ) : (
-          'Iniciar sesión'
-        )}
-      </Button>
-    </form>
   )
 }
 

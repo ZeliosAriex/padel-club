@@ -7,23 +7,27 @@ Welcome to **Padel Club**, a Next.js 15 project designed to manage a padel club 
 ## **Features**
 
 - 🔐 **Authentication System**:
-    - Login and Registration with secure password hashing (using bcrypt).
-    - Session management through NextAuth.js.
+
+  - Login and Registration with secure password hashing (using bcrypt).
+  - Session management through NextAuth.js.
 
 - 🖥️ **Dashboard**:
-    - Modular design for user-specific features.
-    - Extensible structure to support future enhancements.
+
+  - Modular design for user-specific features.
+  - Extensible structure to support future enhancements.
 
 - 🎨 **Reusable UI Components**:
-    - Buttons, forms, alerts, and inputs built with accessibility in mind.
-    - Easily customizable for scaling.
+
+  - Buttons, forms, alerts, and inputs built with accessibility in mind.
+  - Easily customizable for scaling.
 
 - ⚙️ **Backend Integration**:
-    - Prisma as the ORM for database interactions.
-    - Structured repositories for clean and maintainable database queries.
+
+  - Prisma as the ORM for database interactions.
+  - Structured repositories for clean and maintainable database queries.
 
 - 🛠️ **Scalable Architecture**:
-    - Clear separation of concerns with actions, repositories, services, and hooks.
+  - Clear separation of concerns with actions, repositories, services, and hooks.
 
 ---
 
@@ -74,33 +78,41 @@ padel-club/
 ## **Setup**
 
 ### **1. Clone the Repository**
+
 ```bash
 git clone https://github.com/your-username/padel-club.git
 cd padel-club
 ```
 
 ### **2. Install Dependencies**
+
 ```bash
 npm install
 ```
 
 ### **3. Configure Environment Variables**
+
 - Create a `.env` file in the root directory.
 - Use `.env.example` as a template and fill in your credentials.
 
 ### **4. Migrate the Database**
+
 Ensure Prisma is set up correctly:
+
 ```bash
 npx prisma migrate dev
 ```
 
 ### **5. Seed the Database (Optional)**
+
 To populate the database with test data:
+
 ```bash
 npx ts-node prisma/seed.ts
 ```
 
 ### **6. Run the Development Server**
+
 ```bash
 npm run dev
 ```
@@ -121,11 +133,11 @@ Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
 ## **Scripts**
 
-| Script           | Description                               |
-|-------------------|-------------------------------------------|
-| `npm run dev`    | Runs the development server               |
-| `npm run build`  | Builds the production-ready application   |
-| `npm run start`  | Starts the application in production mode |
+| Script              | Description                                |
+| ------------------- | ------------------------------------------ |
+| `npm run dev`       | Runs the development server                |
+| `npm run build`     | Builds the production-ready application    |
+| `npm run start`     | Starts the application in production mode  |
 | `npx prisma studio` | Opens Prisma Studio to manage the database |
 
 ---
