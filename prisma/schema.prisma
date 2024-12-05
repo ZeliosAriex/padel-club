@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model represents the application users
+model User {
+  id            String        @id @default(cuid())
+  name          String // User's full name
+  email         String        @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  password      String? // Hashed password (Optional if we are using oauth)
+  role          Role          @default(USER)
+  isActive      Boolean       @default(true)
+  reservations  Reservation[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([email])
+  @@map("user")
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@map("account")
+}
+
+// Court model represents the available paddle courts
+model Court {
+  id               String        @id @default(cuid())
+  name             String        @unique
+  description      String? // Optional description of the court
+  isActive         Boolean       @default(true)
+  reservations     Reservation[]
+  maintenanceNotes String? // Optional maintenance information
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([name])
+  @@map("court")
+}
+
+// Reservation model handles court bookings
+model Reservation {
+  id        String            @id @default(cuid())
+  userId    String
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courtId   String
+  court     Court             @relation(fields: [courtId], references: [id], onDelete: Cascade)
+  date      DateTime // Actual date of the reservation
+  timeSlot  Int // Hour slot (1-24 for example)
+  status    ReservationStatus @default(PENDING)
+  notes     String? // Optional notes for the reservation
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@unique([courtId, date, timeSlot]) // Prevent double bookings
+  @@index([userId])
+  @@index([courtId])
+  @@index([date])
+  @@map("reservation")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
