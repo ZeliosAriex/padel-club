@@ -1,3 +1,5 @@
+import { User } from '@prisma/client'
+
 import { db } from '@/lib/prisma'
 import { handleRepositoryOperation } from '@/lib/utils/repository-utils'
 import { sanitizeUser } from '@/lib/utils/user-utils'
@@ -45,6 +47,27 @@ export const getUserByEmail = async (
     {
       defaultErrorMessage: 'Failed to fetch user by email.',
       onSuccess: sanitizeUser, // Apply sanitization before returning
+    },
+  )
+
+/**
+ * Fetches a user from the database by their email without applying sanitization.
+ *
+ * @param email - The email of the user to find.
+ * @returns A RepositoryResponse containing the raw user object if found, or an error.
+ */
+export const getRawUserByEmail = async (
+  email: string,
+): Promise<RepositoryResponse<User>> =>
+  handleRepositoryOperation(
+    () =>
+      db.user.findUnique({
+        where: {
+          email: email.toLowerCase(),
+        },
+      }),
+    {
+      defaultErrorMessage: 'Failed to fetch user by email.',
     },
   )
 
